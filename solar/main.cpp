@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
 
   VAO vao = VAO();
   vao.bind();
-  vao.enableVertex(3, 0, 1, 2, 3);
+  vao.enableVertex(3, 0, 1, 2);
   vao.setOffset(3, 3, 3, 2);
 
   vbo.bind();
