@@ -1,4 +1,4 @@
-#include <solar/VAO.hpp>
+#include "../include/VAO.hpp"
 
 VAO::VAO() {
   glGenVertexArrays(1, &this->m_vao);

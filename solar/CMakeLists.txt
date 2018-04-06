@@ -1,19 +1,23 @@
 cmake_minimum_required(VERSION 3.9)
+project(solarSystem)
 
-project(ImacGL)
+set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
+#set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
 
 add_definitions(-std=c++14)
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
+file(GLOB_RECURSE SOURCE_FILES *.cpp)
+file(GLOB_RECURSE HEADER_FILES *.hpp)
+file(GLOB_RECURSE SHADER_FILES *.glsl)
 
-find_package(SDL REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
+set(SOURCE_FILES ${SOURCE_FILES} ${HEADER_FILES} ${SHADER_FILES})
 
-include_directories(${SDL_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${SDL_IMAGE_INCLUDE_DIRS} ${SDL_ttf_INCLUDE_DIRS} ${GLEW_INCLUDE_DIR} glimac/include third-party/include)
+include_directories(include)
 
-#set(ALL_LIBRARIES glimac ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY} glu32 freeglut)
-set(ALL_LIBRARIES mingw32 glimac SDL glew32s opengl32 glu32 freeglut) #add the libraries options in the LIB_LIST variable
+add_executable(solarSystem ${SOURCE_FILES})
+target_link_libraries(solarSystem ${ALL_LIBRARIES})
 
-add_subdirectory(glimac)
-add_subdirectory("solar")
+#file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/assets)
+file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/shaders)
+#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

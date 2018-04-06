@@ -3,8 +3,8 @@
 #include <GL/glew.h>
 #include <glimac/SDLWindowManager.hpp>
 #include <glimac/Sphere.hpp>
-#include <solar/VBO.hpp>
-#include <solar/VAO.hpp>
+#include <VBO.hpp>
+#include <VAO.hpp>
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
 
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
   glEnable(GL_DEPTH_TEST);
 
   glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
-  ProjMatrix = glm::perspective(glm::radians(70.f), 800.f/600.f, 0.1f, 100.f);
+  ProjMatrix = glm::perspective(glm::radians(70.f), 800.f/800.f, 0.1f, 100.f);
 
   MVMatrix = glm::translate(MVMatrix, glm::vec3(0.f, 0.f, -5.f));
 
@@ -61,9 +61,12 @@ int main(int argc, char** argv) {
 
   VAO vao = VAO();
   vao.bind();
-  vao.attribVertex(3);
+  vao.enableVertex(3, 0, 1, 2, 3);
+  vao.setOffset(3, 3, 3, 2);
+
   vbo.bind();
   vao.attribVertex(GL_FLOAT);
+  vbo.unbind();
   vao.unbind();
 
   bool done = false;
