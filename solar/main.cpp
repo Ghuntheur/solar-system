@@ -7,7 +7,7 @@
 #include <glimac/Program.hpp>
 
 #include <Sphere.hpp>
-#include <Utilities.hpp>
+#include <Application.hpp>
 
 int main(int argc, char** argv) {
 
@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 
   glimac::SDLWindowManager windowManager(800, 800, "SolarSystem");
 
-  Utilities::initSDL();
+  Application::initSDL();
 
   glimac::FilePath applicationPath(argv[0]);
   glimac::Program program = glimac::loadProgram(
