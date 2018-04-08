@@ -43,7 +43,7 @@ void VAO::enableVertex(const GLuint count, ...) {
     this->m_vertexAttribute.emplace_back(nb);
   }
   va_end(args);
-  
+
 }
 
 void VAO::attribVertex(GLenum type) {

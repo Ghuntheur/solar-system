@@ -1,39 +1,30 @@
 #define GLEW_STATIC
 #include <iostream>
 #include <glimac/FilePath.hpp>
+#include <glimac/Program.hpp>
+#include <glimac/SDLWindowManager.hpp>
+#include <App.hpp>
 
-#include "App.hpp"
+#include "Vendors/Utilities.hpp"
+#include "Render/Sphere.hpp"
 
 int main(int argc, char** argv) {
 
-  glimac::FilePath appPath(argv[0]);
+  App * app = App::instance();
+  app->init();
+  app->start();
 
-  App *app = App::instance();
+  /*glimac::SDLWindowManager windowManager(800, 800, "GLImac");
 
-  try {
-    app->init("SOLAR SYSTEM", 1000, 1000);
-    app->start();
-  }
-  catch (const std::exception &e) {
-    std::cerr << e.what() << std::endl;
-    return EXIT_FAILURE;
-  }
+  Utilities::initSDL();
 
-  delete app;
-
-  return EXIT_SUCCESS;
-
-  /*glimac::FilePath applicationPath(argv[0]);
-  glimac::Program program = glimac::loadProgram(
+  glimac::FilePath applicationPath(argv[0]);
+  glimac::Program program = loadProgram(
     applicationPath.dirPath() + "shaders/3D.vs.glsl",
     applicationPath.dirPath() + "shaders/normals.fs.glsl"
   );
 
   program.use();
-
-  *//* --------------------- *//*
-  *//* ----- MAIN CODE ----- *//*
-  *//* --------------------- *//*
 
 
   Sphere sphere(1, 32, 16);
@@ -63,11 +54,10 @@ int main(int argc, char** argv) {
       }
     }
 
-    *//* ---------------- *//*
-    *//* ----- DRAW ----- *//*
-    *//* ---------------- *//*
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glm::mat4 test = glm::rotate(test, windowManager.getTime(), glm::sphericalRand(5.f));
 
     glUniformMatrix4fv(uMVPMatrixLoc, 1, GL_FALSE, glm::value_ptr(ProjMatrix*MVMatrix));
     glUniformMatrix4fv(uMVMatrixLoc, 1, GL_FALSE, glm::value_ptr(MVMatrix));
@@ -76,6 +66,6 @@ int main(int argc, char** argv) {
     sphere.draw();
 
     // Update the display
-    windowManager.swapBuffers();*/
-  // }
+    windowManager.swapBuffers();
+  } */
 }

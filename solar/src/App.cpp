@@ -1,55 +1,23 @@
-#define GLEW_STATIC
-
-#include <iostream>
-#include <GL/glew.h>
-
 #include "App.hpp"
-#include "States/PlayState.hpp"
-
 
 App *App::s_instance = nullptr;
 
-App::App() = default;
-
-int App::initSDL() {
-  GLenum glewInitError = glewInit();
-  if(GLEW_OK != glewInitError) {
-    std::cerr << glewGetErrorString(glewInitError) << std::endl;
-    return EXIT_FAILURE;
-  }
-
-  std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
-  std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
-
-  return EXIT_SUCCESS;
-}
+App::App() { }
 
 App *App::instance() {
   if (!s_instance) {
     s_instance = new App;
   }
-  return App::s_instance;
+  return s_instance;
 }
 
-App::~App() {
-  delete this->m_window;
+
+void App::init() {
+  this->m_window = new glimac::SDLWindowManager((uint32_t)this->m_width, (uint32_t )this->m_height, (this->m_title).c_str());
+
+  Utilities::initSDL();
 }
 
-/* -------------------------------- */
-
-void App::init(const std::string title, const int width, const int height) {
-  this->setTitle(title);
-  this->setWindowWidth(width);
-  this->setWindowHeight(height);
-
-  this->m_state_factory = new StateFactory();
-
-  this->m_window = new glimac::SDLWindowManager((uint32_t)this->m_width, (uint32_t)this->m_width, this->m_title.c_str());
-
-  this->initSDL();
-
-  this->m_state_factory->add(PLAY_STATE, new PlayState);
-}
 
 void App::start() {
   this->m_running = true;
@@ -71,13 +39,20 @@ void App::run() {
   glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-  SDL_Event e;
+  SDL_Event ev = {};
   while (this->m_running) {
-    while (this->m_window->pollEvent(e)) {
-      if (e.type == SDL_QUIT) {
+
+    while (this->m_window->pollEvent(ev)) {
+      if (ev.type == SDL_QUIT) {
         this->stop();
       }
     }
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+    this->m_window->swapBuffers();
+
   }
 }
 
