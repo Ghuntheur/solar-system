@@ -3,13 +3,13 @@
 #include <iostream>
 #include <GL/glew.h>
 
-#include <App.hpp>
-
+#include "App.hpp"
+#include "States/PlayState.hpp"
 
 
 App *App::s_instance = nullptr;
 
-App::App() { }
+App::App() = default;
 
 int App::initSDL() {
   GLenum glewInitError = glewInit();
@@ -42,10 +42,13 @@ void App::init(const std::string title, const int width, const int height) {
   this->setWindowWidth(width);
   this->setWindowHeight(height);
 
+  this->m_state_factory = new StateFactory();
+
   this->m_window = new glimac::SDLWindowManager((uint32_t)this->m_width, (uint32_t)this->m_width, this->m_title.c_str());
 
   this->initSDL();
 
+  this->m_state_factory->add(PLAY_STATE, new PlayState);
 }
 
 void App::start() {
@@ -68,9 +71,8 @@ void App::run() {
   glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-
+  SDL_Event e;
   while (this->m_running) {
-    SDL_Event e;
     while (this->m_window->pollEvent(e)) {
       if (e.type == SDL_QUIT) {
         this->stop();

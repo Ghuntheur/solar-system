@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glimac/SDLWindowManager.hpp>
+#include "StateFactory.hpp"
 
 class App {
 
@@ -12,6 +13,7 @@ private:
   bool m_running = false;
 
   glimac::SDLWindowManager *m_window;
+  StateFactory *m_state_factory;
 
   static App * s_instance;
 
