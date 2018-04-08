@@ -1,25 +1,29 @@
 #define GLEW_STATIC
 #include <iostream>
-#include <GL/glew.h>
-
-#include <glimac/SDLWindowManager.hpp>
 #include <glimac/FilePath.hpp>
-#include <glimac/Program.hpp>
 
-#include <Sphere.hpp>
-#include <Application.hpp>
+#include "App.hpp"
 
 int main(int argc, char** argv) {
 
-  /* -------------------------- */
-  /* ----- INITIALIZATION ----- */
-  /* -------------------------- */
+  glimac::FilePath appPath(argv[0]);
 
-  glimac::SDLWindowManager windowManager(800, 800, "SolarSystem");
+  App *app = App::instance();
 
-  Application::initSDL();
+  try {
+    app->init("SOLAR SYSTEM", 1000, 1000);
+    app->start();
+  }
+  catch (const std::exception &e) {
+    std::cerr << e.what() << std::endl;
+    return EXIT_FAILURE;
+  }
 
-  glimac::FilePath applicationPath(argv[0]);
+  delete app;
+
+  return EXIT_SUCCESS;
+
+  /*glimac::FilePath applicationPath(argv[0]);
   glimac::Program program = glimac::loadProgram(
     applicationPath.dirPath() + "shaders/3D.vs.glsl",
     applicationPath.dirPath() + "shaders/normals.fs.glsl"
@@ -27,9 +31,9 @@ int main(int argc, char** argv) {
 
   program.use();
 
-  /* --------------------- */
-  /* ----- MAIN CODE ----- */
-  /* --------------------- */
+  *//* --------------------- *//*
+  *//* ----- MAIN CODE ----- *//*
+  *//* --------------------- *//*
 
 
   Sphere sphere(1, 32, 16);
@@ -59,9 +63,9 @@ int main(int argc, char** argv) {
       }
     }
 
-    /* ---------------- */
-    /* ----- DRAW ----- */
-    /* ---------------- */
+    *//* ---------------- *//*
+    *//* ----- DRAW ----- *//*
+    *//* ---------------- *//*
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -72,10 +76,6 @@ int main(int argc, char** argv) {
     sphere.draw();
 
     // Update the display
-    windowManager.swapBuffers();
-  }
-
-
-
-  return EXIT_SUCCESS;
+    windowManager.swapBuffers();*/
+  // }
 }

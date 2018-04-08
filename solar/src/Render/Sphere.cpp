@@ -1,4 +1,4 @@
-#include <Sphere.hpp>
+#include <Objects/Sphere.hpp>
 
 Sphere::Sphere(GLfloat radius, GLsizei discLat, GLsizei discLong)
   : glimac::Sphere(radius, discLat, discLong) { }

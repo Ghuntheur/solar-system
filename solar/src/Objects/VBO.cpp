@@ -1,4 +1,4 @@
-#include "../include/VBO.hpp"
+#include "Render/VBO.hpp"
 
 VBO::VBO() {
   glGenBuffers(1, &this->vbo);

@@ -2,23 +2,30 @@
 
 #include <glimac/SDLWindowManager.hpp>
 
-class Application {
+class App {
 
 private:
   int m_width;
   int m_height;
   std::string m_title;
 
-  glimac::SDLWindowManager *m_window;
-  static Application *m_instance;
-  Application();
+  bool m_running = false;
 
+  glimac::SDLWindowManager *m_window;
+
+  static App * s_instance;
+
+  App();
+  static int initSDL();
 
 public:
-  ~Application();
+  ~App();
+  static App *instance();
 
-  static int initSDL();
-  void init(const std::string title, const int widthh, const int height);
+  void init(std::string title, int widthh, int height);
+  void start();
+  void run();
+  void stop();
 
   // GETTER
   inline const std::string getTitle() const { return this->m_title; }
@@ -27,7 +34,7 @@ public:
 
   // SETTER
   inline void setTitle(const std::string title) { this->m_title = title; }
-  inline void setWidth(const int width) { this->m_width = width; }
-  inline void setheight(const int height) { this->m_height = height; }
+  inline void setWindowWidth(const int width) { this->m_width = width; }
+  inline void setWindowHeight(const int height) { this->m_height = height; }
 
 };
