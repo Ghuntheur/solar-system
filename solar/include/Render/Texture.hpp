@@ -6,7 +6,7 @@
 class Texture {
 
 private:
-  std::string m_url;
+  glimac::FilePath m_url;
   std::unique_ptr<glimac::Image> m_image;
   GLuint m_texture;
 
@@ -16,5 +16,7 @@ public:
   void generate();
   void bind();
   void unbind();
-
+  void addTarget();
+  void locate(GLint, int = 0);
+  void remove();
 };

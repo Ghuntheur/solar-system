@@ -18,7 +18,15 @@ void Sphere::initBuffers() {
   this->m_vao.unbind();
 }
 
-void Sphere::draw() {
+void Sphere::binVAO() {
   this->m_vao.bind();
+}
+
+void Sphere::removeBuffers() {
+  this->m_vao.remove();
+  this->m_vbo.remove();
+}
+
+void Sphere::draw() {
   glDrawArrays(GL_TRIANGLES, 0, this->getVertexCount());
 }

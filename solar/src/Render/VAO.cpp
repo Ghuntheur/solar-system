@@ -1,3 +1,5 @@
+#define GLEW_STATIC
+#include <glimac/common.hpp>
 #include "Render/VAO.hpp"
 
 VAO::VAO() {
@@ -43,7 +45,6 @@ void VAO::enableVertex(const GLuint count, ...) {
     this->m_vertexAttribute.emplace_back(nb);
   }
   va_end(args);
-
 }
 
 void VAO::attribVertex(GLenum type) {
@@ -55,7 +56,7 @@ void VAO::attribVertex(GLenum type) {
       type,
       GL_FALSE,
       this->m_typeLenght*sizeof(type),
-      (const GLvoid*)(this->m_componentSize[i]*sizeof(type))
+      (const GLvoid*)(this->m_componentSize[i]*sizeof(type)*this->m_vertexAttribute[i])
     );
   }
 }

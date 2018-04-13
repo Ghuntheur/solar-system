@@ -14,6 +14,8 @@ public:
   Sphere(GLfloat radius, GLsizei discLat, GLsizei discLong);
 
   void initBuffers();
+  void binVAO();
   void draw();
+  void removeBuffers();
 
 };
