@@ -10,11 +10,23 @@
 
 int main(int argc, char** argv) {
 
-  App * app = App::instance();
-  app->init();
-  app->start();
+  /*glimac::FilePath appPath(argv[0]);
 
-  /*glimac::SDLWindowManager windowManager(800, 800, "GLImac");
+  App * app = App::instance();
+
+  try {
+    app->init();
+    app->start();
+  }
+  catch (const std::exception &e) {
+    std::cerr << e.what() << std::endl;
+    return EXIT_FAILURE;
+  }
+  delete app;
+
+  return EXIT_SUCCESS;*/
+
+  glimac::SDLWindowManager windowManager(800, 800, "GLImac");
 
   Utilities::initSDL();
 
@@ -67,5 +79,5 @@ int main(int argc, char** argv) {
 
     // Update the display
     windowManager.swapBuffers();
-  } */
+  }
 }

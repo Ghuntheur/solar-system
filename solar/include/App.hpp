@@ -2,6 +2,7 @@
 #pragma once
 
 #include <glimac/SDLWindowManager.hpp>
+#include <glimac/FilePath.hpp>
 
 #include "Vendors/Utilities.hpp"
 

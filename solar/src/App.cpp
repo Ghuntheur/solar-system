@@ -13,11 +13,12 @@ App *App::instance() {
 
 
 void App::init() {
-  this->m_window = new glimac::SDLWindowManager((uint32_t)this->m_width, (uint32_t )this->m_height, (this->m_title).c_str());
+  this->m_window = new glimac::SDLWindowManager((uint32_t) this->m_width, (uint32_t) this->m_height,
+                                                (this->m_title).c_str());
 
   Utilities::initSDL();
-}
 
+}
 
 void App::start() {
   this->m_running = true;
@@ -38,6 +39,8 @@ void App::run() {
   glEnable(GL_LINE_SMOOTH);
   glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+
 
   SDL_Event ev = {};
   while (this->m_running) {
