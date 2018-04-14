@@ -29,6 +29,7 @@ public:
   void run();
   void stop();
 
+  static glimac::FilePath s_appPath;
 };
 
 
