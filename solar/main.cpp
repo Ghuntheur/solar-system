@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
   glimac::FilePath appPath(argv[0]);
 
   App *app = App::instance();
-  App::s_appPath = appPath;
+  App::s_appPath = appPath.dirPath();
 
   try {
     app->init();

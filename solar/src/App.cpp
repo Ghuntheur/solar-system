@@ -38,8 +38,8 @@ void App::run() {
   glEnable(GL_DEPTH_TEST);
 
   glimac::Program program = glimac::loadProgram(
-    App::s_appPath + "../shaders/3D.vs.glsl",
-    App::s_appPath + "../shaders/texture.fs.glsl"
+    App::s_appPath + "shaders/3D.vs.glsl",
+    App::s_appPath + "shaders/texture.fs.glsl"
   );
 
   program.use();
