@@ -1,6 +1,6 @@
 #define GLEW_STATIC
 #include <glimac/common.hpp>
-#include "Render/VAO.hpp"
+#include "Vendors/VAO.hpp"
 
 VAO::VAO() {
   glGenVertexArrays(1, &this->m_vao);

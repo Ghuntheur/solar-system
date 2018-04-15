@@ -1,8 +1,8 @@
 #pragma once
 
 #include <glimac/Sphere.hpp>
-#include "Render/VBO.hpp"
-#include "Render/VAO.hpp"
+#include "Vendors/VBO.hpp"
+#include "Vendors/VAO.hpp"
 
 class Sphere : public glimac::Sphere {
 

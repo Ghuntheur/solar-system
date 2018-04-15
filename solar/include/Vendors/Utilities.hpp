@@ -8,7 +8,7 @@
 class Utilities {
 
 public:
-  static int initSDL();
+  static void initSDL();
 
 };
 

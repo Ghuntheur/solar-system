@@ -5,6 +5,8 @@
 #include <glimac/FilePath.hpp>
 
 #include "Vendors/Utilities.hpp"
+#include "StateController.hpp"
+#include "States/PlayState.hpp"
 
 class App {
 
@@ -12,6 +14,7 @@ private:
 
   static App *s_instance;
   glimac::SDLWindowManager *m_window;
+  StateController *m_stateController;
 
   int m_width = 800;
   int m_height = 800;
@@ -28,6 +31,9 @@ public:
   void start();
   void run();
   void stop();
+
+  inline const int getWidth() const { return this->m_width; }
+  inline const int getHeight() const { return this->m_height; }
 
   static glimac::FilePath s_appPath;
 };

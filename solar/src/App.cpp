@@ -20,13 +20,19 @@ App *App::instance() {
 
 
 void App::init() {
-  std::cout << App::s_appPath << std::endl;
+  this->m_stateController = new StateController();
+
   this->m_window = new glimac::SDLWindowManager(
     (uint32_t) this->m_width,
     (uint32_t) this->m_height,
     (this->m_title).c_str()
   );
   Utilities::initSDL();
+
+  this->m_stateController->add(PLAY_STATE, new PlayState);
+
+  this->m_stateController->setState(PLAY_STATE);
+
 }
 
 void App::start() {
@@ -46,7 +52,7 @@ void App::run() {
 
   Sphere sphere(1, 32, 16);
 
-  Texture earth("./assets/earth.jpg");
+  Texture earth(App::s_appPath + "assets/earth.jpg");
 
   GLint uMVPMatrixLoc = glGetUniformLocation(program.getGLId(), "uMVPMatrix");
   GLint uMVMatrixLoc = glGetUniformLocation(program.getGLId(), "uMVMatrix");
@@ -80,7 +86,6 @@ void App::run() {
     earth.locate(uTextureLoc);
     sphere.draw();
     earth.unbind();
-
 
     this->m_window->swapBuffers();
 

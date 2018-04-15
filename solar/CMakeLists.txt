@@ -4,7 +4,7 @@ project(solarSystem)
 set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
 #set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
 
-add_definitions(-std=c++14)
+add_definitions(-std=c++11)
 
 file(GLOB_RECURSE SOURCE_FILES *.cpp)
 file(GLOB_RECURSE HEADER_FILES *.hpp)
