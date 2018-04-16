@@ -1,13 +1,8 @@
 #pragma once
 
-#include <iostream>
-#include <string>
+#include "Objects/Object.hpp"
 
-#include "World/Scene.hpp"
-
-class Scene;
-
-class Planet {
+class Planet : public Object {
 
 private:
   std::string m_name;
@@ -18,11 +13,9 @@ private:
   float m_dayLength;
   float m_inclination;
 
-
 public:
-  Planet(std::string name, float aphelion, float perihelion, int diameter, float orbitalPeriod, float dayLength, float inclination);
-  void init();
-  void attach(Scene *scene);
+  Planet(std::string name, float aphelion, float perihelion, int diameter,
+         float orbitalPeriod, float dayLength, float inclination, CustomProgram *program);
 
 };
 

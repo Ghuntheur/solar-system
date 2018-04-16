@@ -9,8 +9,9 @@ void Scene::loadPlanets() {
   std::ifstream file(App::s_appPath + "assets/planets.csv");
   if (!file.is_open()) throw std::runtime_error("planets file does not exists");
 
+  Object *object;
+
   std::string planetName, aphelion, perihelion, diameter, orbitalPeriod, dayLength, inclination;
-  Planet *planet;
 
   std::string line;
   while (!file.eof()) {
@@ -28,6 +29,8 @@ void Scene::loadPlanets() {
     dayLength = line;
     std::getline(file, line, '\n');
     inclination = line;
+
+    // object = new Planet()
 
   }
 

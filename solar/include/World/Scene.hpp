@@ -1,5 +1,7 @@
 #pragma once
 
+#define GLEW_STATIC
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,19 +9,22 @@
 #include <glm/glm.hpp>
 #include <list>
 
-#include "Objects/Planet.hpp"
+#include "Vendors/CustomProgram.hpp"
+#include "Objects/Object.hpp"
 #include "App.hpp"
 
-class Planet;
+class Object;
 
 class Scene {
 
 private:
   bool m_ready = false;
   GLfloat m_aspectRatio;
+  CustomProgram m_program;
 
   glm::mat4 m_projMatrix;
-  std::list<Planet *> m_planets;
+  std::list<Object *> m_planets;
+
 
 public:
   void init();
