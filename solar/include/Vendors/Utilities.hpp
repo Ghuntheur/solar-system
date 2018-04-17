@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include <GL/glew.h>
+#include <algorithm>
+#include <iostream>
+#include <string>
 
 class Utilities {
 

@@ -19,7 +19,7 @@ void Scene::loadPlanets() {
   std::getline(file, line);
   int i = 0;
   while (file.good()) {
-    glm::vec3 pos(i, 0, -15.f);
+    glm::vec3 pos(i, 0, -5.f);
     std::getline(file, line, ',');
     planetName = line;
     std::getline(file, line, ',');

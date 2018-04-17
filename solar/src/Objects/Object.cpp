@@ -4,7 +4,7 @@
 Object::Object(glm::vec3 pos,CustomProgram *program) :
   m_pos(pos), m_program(program) {
 
-  this->m_sphere = new Sphere(1, 32, 16);
+  this->m_sphere = new Sphere(0.5f, 32, 16);
 
 }
 
@@ -21,6 +21,7 @@ void Object::init() {
   this->u_Texture = glGetUniformLocation(this->m_program->getGLId(), "uTexture");
 
   this->m_MVMatrix = glm::translate(this->m_MVMatrix, this->m_pos);
+  this->m_NormalMatrix = glm::transpose(glm::inverse(this->m_MVMatrix));
 
   this->m_program->use();
   this->m_sphere->initBuffers();
