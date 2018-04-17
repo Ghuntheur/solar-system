@@ -11,7 +11,7 @@ private:
   GLuint m_texture;
 
 public:
-  Texture(std::string url);
+  Texture(glimac::FilePath url);
   void init();
   void generate();
   void bind();

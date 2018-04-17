@@ -4,7 +4,7 @@
 
 #include "Render/Texture.hpp"
 
-Texture::Texture(std::string url)
+Texture::Texture(glimac::FilePath url)
   : m_url(url) {
   this->init();
 }

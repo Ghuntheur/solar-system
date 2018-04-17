@@ -43,7 +43,23 @@ void App::start() {
 void App::run() {
   glEnable(GL_DEPTH_TEST);
 
-  glimac::Program program = glimac::loadProgram(
+  while (this->m_running) {
+
+    SDL_Event e = {};
+    while (this->m_window->pollEvent(e)) {
+      if (e.type == SDL_QUIT) {
+        this->stop();
+      }
+
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+      this->m_stateController->render();
+      this->m_window->swapBuffers();
+
+    }
+  }
+
+  /* glimac::Program program = glimac::loadProgram(
     App::s_appPath + "shaders/3D.vs.glsl",
     App::s_appPath + "shaders/texture.fs.glsl"
   );
@@ -89,7 +105,7 @@ void App::run() {
 
     this->m_window->swapBuffers();
 
-  }
+  } */
 }
 
 void App::stop() {

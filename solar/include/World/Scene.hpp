@@ -11,6 +11,7 @@
 
 #include "Vendors/CustomProgram.hpp"
 #include "Objects/Object.hpp"
+#include "Objects/Planet.hpp"
 #include "App.hpp"
 
 class Object;
@@ -28,14 +29,17 @@ private:
 
 public:
   void init();
+  void loadPlanets();
   void render();
   void keyPressed(uint32_t, bool);
   void mouseMove(glm::ivec2 &);
   void mousePressed(uint32_t, bool);
-  void loadPlanets();
+
+  inline const glm::mat4& getProjMatrix() const { return this->m_projMatrix; }
 
 private:
   void reshape(int, int, GLfloat = 45.0f);
-
+  template <class T> void addToList(std::list<T *> &list, T *object);
+  template <class T> void renderList(std::list<T *> &list);
 };
 

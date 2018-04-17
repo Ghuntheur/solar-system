@@ -9,7 +9,7 @@ void PlayState::init(StateController *controller) {
 }
 
 void PlayState::render() {
-
+  this->m_scene->render();
 }
 
 void PlayState::keyPressed(const uint32_t key, const bool active) {

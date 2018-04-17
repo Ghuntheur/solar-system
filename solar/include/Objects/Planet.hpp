@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Objects/Object.hpp"
+#include "World/Scene.hpp"
 
 class Planet : public Object {
 
@@ -15,7 +16,8 @@ private:
 
 public:
   Planet(std::string name, float aphelion, float perihelion, int diameter,
-         float orbitalPeriod, float dayLength, float inclination, CustomProgram *program);
+         float orbitalPeriod, float dayLength, float inclination,
+         glm::vec3 pos, CustomProgram *program);
 
 };
 
