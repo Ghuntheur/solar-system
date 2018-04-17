@@ -8,5 +8,4 @@ Planet::Planet(std::string name, float aphelion, float perihelion, int diameter,
 
   glimac::FilePath image  = this->m_name + ".jpg";
   this->m_texture = new Texture(App::s_appPath + "assets/textures/planets/" + image);
-
 }

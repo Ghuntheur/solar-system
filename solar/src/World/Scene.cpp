@@ -2,7 +2,9 @@
 
 void Scene::init() {
   this->reshape(App::instance()->getWidth(), App::instance()->getHeight());
-  // CAMERAS
+
+  this->m_cameras[TOP_VIEW] = new TrackballCamera();
+  this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
 }
 
 void Scene::loadPlanets() {
@@ -19,7 +21,7 @@ void Scene::loadPlanets() {
   std::getline(file, line);
   int i = 0;
   while (file.good()) {
-    glm::vec3 pos(i, 0, -5.f);
+    glm::vec3 pos(i, 0, 0);
     std::getline(file, line, ',');
     planetName = line;
     std::getline(file, line, ',');
@@ -42,18 +44,31 @@ void Scene::loadPlanets() {
   }
 
   file.close();
+
+  this->initCameras();
 }
 
 void Scene::render() {
   this->renderList(this->m_planets);
 }
 
+const glm::mat4 Scene::getViewMatrix() {
+  return this->m_cameras[this->m_currentCamera]->getViewMatrix();
+}
+
+const unsigned int Scene::getCameraUID() {
+  return this->m_cameras[this->m_currentCamera]->getUID();
+}
 
 /* ----------------------------- */
 
 void Scene::reshape(const int width, int height, const GLfloat fov) {
   this->m_aspectRatio = (GLfloat) width / height;
   this->m_projMatrix = glm::perspective(glm::radians(fov), this->m_aspectRatio, 0.1f, 100.f);
+}
+
+void Scene::initCameras() {
+
 }
 
 template <class T> void Scene::addToList(std::list<T *> &list, T *object) {
@@ -65,5 +80,20 @@ template <class T> void Scene::addToList(std::list<T *> &list, T *object) {
 template <class T> void Scene::renderList(std::list<T *> &list) {
   for (auto it = list.begin(); it != list.end(); ++it) {
     (*it)->render();
+  }
+}
+
+template <class T> void Scene::deleteList(std::list<T *> &list) {
+  for (auto it = list.begin(); it != list.end(); ++it) {
+    delete *it;
+  }
+  list.clear();
+}
+
+Scene::~Scene() {
+  this->deleteList(this->m_planets);
+
+  for (const auto &temp : this->m_cameras) {
+    delete temp.second;
   }
 }
