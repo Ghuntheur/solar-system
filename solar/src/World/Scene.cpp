@@ -68,7 +68,10 @@ void Scene::reshape(const int width, int height, const GLfloat fov) {
 }
 
 void Scene::initCameras() {
-
+  this->m_cameras[TOP_VIEW]->setPosition(0, -10.f, 0);
+  this->m_cameras[TOP_VIEW]->setFov(50.f);
+  this->m_cameras[TOP_VIEW]->rotateUp(90.f);
+  this->m_cameras[TOP_VIEW]->rotateLeft(0.0f);
 }
 
 template <class T> void Scene::addToList(std::list<T *> &list, T *object) {

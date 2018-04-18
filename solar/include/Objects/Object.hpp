@@ -23,14 +23,17 @@ protected:
   glm::vec3 m_pos;
 
   // LOCATION MATRIX SHADERS
-  GLint u_MVPMatrix;
-  GLint u_MVMatrix;
-  GLint u_NormalMatrix;
-  GLint u_Texture;
+  GLint u_projMatrix;
+  GLint u_modelMatrix;
+  GLint u_viewMatrix;
+  GLint u_normalMatrix;
+  GLint u_texture;
 
   // MATRIX
-  glm::mat4 m_MVMatrix;
-  glm::mat4 m_NormalMatrix;
+  glm::mat4 m_modelMatrix;
+  glm::mat4 m_normalMatrix;
+  glm::mat4 m_baseMatrix;
+
 
 public:
   Object() = default;

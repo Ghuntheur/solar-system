@@ -5,9 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <list>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include <list>
 
 #include "Vendors/CustomProgram.hpp"
 #include "Objects/Object.hpp"

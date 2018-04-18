@@ -20,11 +20,11 @@ public:
   TrackballCamera() = default;
 
   void moveFront(float delta);
-  void rotateLeft(float degrees);
-  void rotateUp(float degrees);
+  void rotateLeft(float degrees) override;
+  void rotateUp(float degrees) override;
   void clampUp(float min, float max);
   void clampLeft(float min, float max);
-  glm::mat4 getViewMatrix() const;
+  glm::mat4 getViewMatrix() const override;
 
   inline void setDistance(const float distance) { this->m_fDistance = distance; }
   inline void setAngleUp(const float angle) { this->m_fAngleX = angle; }

@@ -16,6 +16,8 @@ public:
   void setPosition(glm::vec3 &pos);
 
   virtual glm::mat4 getViewMatrix() const = 0;
+  virtual void rotateUp(float degrees) = 0;
+  virtual void rotateLeft(float degrees) = 0;
 
   inline void setFov(const float fov) { this->m_fov = fov; }
 
