@@ -31,6 +31,7 @@ public:
   void start();
   void run();
   void stop();
+  float getTime();
 
   inline const int getWidth() const { return this->m_width; }
   inline const int getHeight() const { return this->m_height; }

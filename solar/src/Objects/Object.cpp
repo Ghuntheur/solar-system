@@ -21,18 +21,15 @@ void Object::init() {
   this->u_viewMatrix = glGetUniformLocation(this->m_program->getGLId(), "uViewMatrix");
   this->u_texture = glGetUniformLocation(this->m_program->getGLId(), "uTexture");
 
-  this->m_modelMatrix = glm::translate(this->m_baseMatrix, this->m_pos);
-  this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
-
   this->m_program->use();
   this->m_sphere->initBuffers();
 }
 
 void Object::render() {
 
-  /*glUniformMatrix4fv(this->u_MVPMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getProjMatrix()*this->m_MVMatrix));
-  glUniformMatrix4fv(this->u_MVMatrix, 1, GL_FALSE, glm::value_ptr(this->m_MVMatrix));
-  glUniformMatrix4fv(this->u_NormalMatrix, 1, GL_FALSE, glm::value_ptr(this->m_NormalMatrix));*/
+  this->m_modelMatrix = glm::translate(this->m_baseMatrix, this->m_pos);
+  this->animate();
+  this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
 
   glUniformMatrix4fv(this->u_projMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getProjMatrix()));
   glUniformMatrix4fv(this->u_viewMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getViewMatrix()));
@@ -44,5 +41,9 @@ void Object::render() {
   this->m_texture->locate(this->u_texture);
   this->m_sphere->draw();
   this->m_texture->unbind();
+}
 
+void Object::animate() {
+  float time = App::instance()->getTime();
+  this->m_modelMatrix = glm::rotate(this->m_modelMatrix, time, glm::vec3(0, 1, 0));
 }

@@ -1,7 +1,6 @@
 #pragma once
 #define GLEW_STATIC
 
-#include <assert.h>
 #include <GL/glew.h>
 #include <glimac/glm.hpp>
 
@@ -42,6 +41,7 @@ public:
   virtual void init();
   virtual void attach(Scene *);
   virtual void render();
+  void animate();
 
 };
 
