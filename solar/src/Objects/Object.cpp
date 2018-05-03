@@ -1,12 +1,8 @@
 #include "Objects/Object.hpp"
 #include "World/Scene.hpp"
 
-Object::Object(glm::vec3 pos,CustomProgram *program) :
-  m_pos(pos), m_program(program) {
-
-  this->m_sphere = new Sphere(0.5f, 32, 16);
-
-}
+Object::Object(CustomProgram *program) :
+  m_program(program) { }
 
 
 void Object::attach(Scene *scene) {
@@ -28,6 +24,7 @@ void Object::init() {
 void Object::render() {
 
   this->m_modelMatrix = glm::translate(this->m_baseMatrix, this->m_pos);
+  // this->m_modelMatrix = glm::rotate();
   this->animate();
   this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
 
@@ -41,9 +38,4 @@ void Object::render() {
   this->m_texture->locate(this->u_texture);
   this->m_sphere->draw();
   this->m_texture->unbind();
-}
-
-void Object::animate() {
-  float time = App::instance()->getTime();
-  this->m_modelMatrix = glm::rotate(this->m_modelMatrix, time, glm::vec3(0, 1, 0));
 }

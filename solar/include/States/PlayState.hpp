@@ -10,7 +10,7 @@ class PlayState : public State {
 
 private:
   bool m_paused = false;
-  bool m_mouse_pressed = false;
+  bool m_mousePressed = false;
   Scene *m_scene;
 
 public:
@@ -20,8 +20,8 @@ public:
   void stop();
   void render();
   void keyPressed(uint32_t key, bool active);
-  void mousePressed(uint32_t key, bool active);
-  void mouseMove(glm::ivec2 &dir);
+  void mousePressed(uint32_t type, bool active);
+  void mouseMove(const glm::ivec2 &dir);
   void loadMap();
   ~PlayState();
 

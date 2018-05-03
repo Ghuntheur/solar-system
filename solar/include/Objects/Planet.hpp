@@ -17,7 +17,9 @@ private:
 public:
   Planet(std::string name, float aphelion, float perihelion, int diameter,
          float orbitalPeriod, float dayLength, float inclination,
-         glm::vec3 pos, CustomProgram *program);
+         CustomProgram *program);
+
+  void animate() override;
 
 };
 

@@ -37,7 +37,7 @@ public:
   void loadPlanets();
   void render();
   void keyPressed(uint32_t, bool);
-  void mouseMove(glm::ivec2 &);
+  void mouseMove(const glm::ivec2 &);
   void mousePressed(uint32_t, bool);
 
   const glm::mat4 getViewMatrix();
@@ -51,8 +51,9 @@ public:
   ~Scene();
 
 private:
-  void reshape(int, int, GLfloat = 45.0f);
+  void reshape(int, int, GLfloat);
   void initCameras();
+  void changeFov(Camera *, float);
   template <class T> void addToList(std::list<T *> &list, T *object);
   template <class T> void renderList(std::list<T *> &list);
   template <class T> void deleteList(std::list<T *> &list);

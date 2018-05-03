@@ -1,10 +1,9 @@
 #include "World/Scene.hpp"
 
 void Scene::init() {
-  this->reshape(App::instance()->getWidth(), App::instance()->getHeight());
+  this->initCameras();
 
-  this->m_cameras[TOP_VIEW] = new TrackballCamera();
-  this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
+  this->reshape(App::instance()->getWidth(), App::instance()->getHeight(), this->m_cameras[this->m_currentCamera]->getFov());
 }
 
 void Scene::loadPlanets() {
@@ -19,9 +18,7 @@ void Scene::loadPlanets() {
 
   std::string line;
   std::getline(file, line);
-  int i = 0;
   while (file.good()) {
-    glm::vec3 pos(i, 0, 0);
     std::getline(file, line, ',');
     planetName = line;
     std::getline(file, line, ',');
@@ -36,20 +33,42 @@ void Scene::loadPlanets() {
     dayLength = std::stof(line);
     std::getline(file, line, '\n');
     inclination = std::stof(line);
-    i++;
 
     object = new Planet(planetName, aphelion, perihelion, diameter, orbitalPeriod,
-                        dayLength, inclination, pos, &this->m_program);
+                        dayLength, inclination, &this->m_program);
     addToList<Object>(this->m_planets, object);
   }
 
   file.close();
-
-  this->initCameras();
 }
 
 void Scene::render() {
   this->renderList(this->m_planets);
+}
+
+void Scene::keyPressed(const uint32_t key, const bool active) {
+  if (active) {
+    if (key == SDLK_c) {
+
+    }
+  }
+}
+
+void Scene::mouseMove(const glm::ivec2 &pos) {
+  if (this->m_currentCamera == TOP_VIEW) {
+    this->m_cameras[TOP_VIEW]->rotateLeft(pos.x * 0.5f);
+  }
+}
+
+void Scene::mousePressed(const uint32_t type, const bool active) {
+  if (type == SDL_BUTTON_WHEELDOWN) {
+    this->m_cameras[TOP_VIEW]->moveFront(-1.f);
+    this->changeFov(this->m_cameras[this->m_currentCamera], 1.f);
+  }
+  if (type == SDL_BUTTON_WHEELUP) {
+    this->m_cameras[TOP_VIEW]->moveFront(1.f);
+    this->changeFov(this->m_cameras[this->m_currentCamera], -1.f);
+  }
 }
 
 const glm::mat4 Scene::getViewMatrix() {
@@ -63,14 +82,27 @@ const unsigned int Scene::getCameraUID() {
 /* ----------------------------- */
 
 void Scene::reshape(const int width, int height, const GLfloat fov) {
-  this->m_aspectRatio = (GLfloat) width / height;
+  if (width != -1 && height != -1) this->m_aspectRatio = (GLfloat) width / height;
   this->m_projMatrix = glm::perspective(glm::radians(fov), this->m_aspectRatio, 0.1f, 100.f);
 }
 
 void Scene::initCameras() {
-  this->m_cameras[TOP_VIEW]->setPosition(0, -10.f, 0);
-  this->m_cameras[TOP_VIEW]->setFov(50.f);
+  this->m_cameras[TOP_VIEW] = new TrackballCamera();
+  this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
+
+  this->m_cameras[TOP_VIEW]->setPosition(0, -40.f, 0);
+  this->m_cameras[TOP_VIEW]->setFov(100.f);
   this->m_cameras[TOP_VIEW]->rotateUp(90.f);
+}
+
+void Scene::changeFov(Camera *cam, float value) {
+  float camFov = cam->getFov();
+  float fov = camFov + value;
+
+  if (fov != camFov) {
+    cam->setFov(fov);
+    this->reshape(-1, -1, fov);
+  }
 }
 
 template <class T> void Scene::addToList(std::list<T *> &list, T *object) {

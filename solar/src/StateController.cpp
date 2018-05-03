@@ -17,7 +17,7 @@ void StateController::mousePressed(const uint32_t key, const bool active) {
   this->m_gameStates[this->m_current]->mousePressed(key, active);
 }
 
-void StateController::mouseMove(glm::ivec2 &pos, glm::ivec2 &dir) {
+void StateController::mouseMove(const glm::ivec2 &pos, const glm::ivec2 &dir) {
   this->m_gameStates[this->m_current]->setMousePos(pos);
   this->m_gameStates[this->m_current]->mouseMove(dir);
 }

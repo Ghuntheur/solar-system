@@ -19,7 +19,7 @@ public:
   void render();
   void keyPressed(uint32_t, bool);
   void mousePressed(uint32_t, bool);
-  void mouseMove(glm::ivec2 &, glm::ivec2 &);
+  void mouseMove(const glm::ivec2 &, const glm::ivec2 &);
   void setState(AppStates);
   void stop();
 

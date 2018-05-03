@@ -19,7 +19,7 @@ private:
 public:
   TrackballCamera() = default;
 
-  void moveFront(float delta);
+  void moveFront(float delta) override;
   void rotateLeft(float degrees) override;
   void rotateUp(float degrees) override;
   void clampUp(float min, float max);

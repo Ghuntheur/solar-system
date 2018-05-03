@@ -16,12 +16,17 @@ void PlayState::keyPressed(const uint32_t key, const bool active) {
 
 }
 
-void PlayState::mousePressed(const uint32_t key, const bool active) {
-
+void PlayState::mousePressed(const uint32_t type, const bool active) {
+  if (type == SDL_BUTTON_LEFT) {
+    this->m_mousePressed = active;
+  }
+  this->m_scene->mousePressed(type, active);
 }
 
-void PlayState::mouseMove(glm::ivec2 &dir) {
-
+void PlayState::mouseMove(const glm::ivec2 &dir) {
+  if (this->m_mousePressed) {
+    this->m_scene->mouseMove(dir);
+  }
 }
 
 void PlayState::stop() {

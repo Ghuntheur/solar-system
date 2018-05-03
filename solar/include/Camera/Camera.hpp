@@ -9,13 +9,14 @@ protected:
   const unsigned int UID = s_uid++;
 
   glm::vec3 m_position;
-  float m_fov = 45.0f;
+  float m_fov;
 
 public:
   void setPosition(float x, float y, float z);
   void setPosition(glm::vec3 &pos);
 
   virtual glm::mat4 getViewMatrix() const = 0;
+  virtual void moveFront(float delta) = 0;
   virtual void rotateUp(float degrees) = 0;
   virtual void rotateLeft(float degrees) = 0;
 
