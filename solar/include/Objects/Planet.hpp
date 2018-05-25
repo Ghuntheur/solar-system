@@ -20,6 +20,7 @@ public:
          CustomProgram *program);
 
   void animate() override;
+  void move() override;
 
 };
 

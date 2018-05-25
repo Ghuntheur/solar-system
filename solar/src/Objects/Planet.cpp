@@ -8,8 +8,6 @@ Planet::Planet(std::string name, float aphelion, float perihelion, int diameter,
 
   float distRatio = 1/100000.f;
 
-  std::cout << this->m_diameter << "    " << this->m_aphelion << std::endl;
-  
   glimac::FilePath image  = this->m_name + ".jpg";
   this->m_texture = new Texture(App::s_appPath + "assets/textures/planets/" + image);
   this->m_sphere = new Sphere((this->m_diameter/2) *distRatio, 32, 16);
@@ -19,4 +17,8 @@ Planet::Planet(std::string name, float aphelion, float perihelion, int diameter,
 void Planet::animate() {
   float time = App::instance()->getTime() * this->getTimeRatio() / this->m_dayLength;
   this->m_modelMatrix = glm::rotate(this->m_modelMatrix, time, glm::vec3(0, 1, 0));
+}
+
+void Planet::move() {
+  this->m_modelMatrix = glm::rotate(this->m_modelMatrix, this->getTimeRatio() * App::instance()->getTime(), glm::vec3(1, 0, 0));
 }

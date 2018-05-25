@@ -43,6 +43,7 @@ public:
   virtual void attach(Scene *);
   virtual void render();
   virtual void animate() = 0;
+  virtual void move() = 0;
 
   inline const float getTimeRatio() const { return this->m_timeRatio; }
 

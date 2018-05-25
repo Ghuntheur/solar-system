@@ -29,6 +29,7 @@ private:
   ViewType m_currentCamera = TOP_VIEW;
 
   glm::mat4 m_projMatrix;
+  glm::mat4 m_globalMatrix;
 
   std::list<Object *> m_planets;
 
@@ -44,6 +45,7 @@ public:
   const unsigned int getCameraUID();
 
   inline const glm::mat4& getProjMatrix() const { return this->m_projMatrix; }
+  inline const glm::mat4& getGlobalMatrix() const { return this->m_globalMatrix; }
   inline const ViewType getViewType() const { return this->m_currentCamera; }
   inline const glm::vec3 getCameraPos() { return this->m_cameras[this->m_currentCamera]->getPosition(); }
   inline const isReady() const { return this->m_ready; }

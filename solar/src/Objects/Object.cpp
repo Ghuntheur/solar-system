@@ -23,9 +23,11 @@ void Object::init() {
 
 void Object::render() {
 
-  this->m_modelMatrix = glm::translate(this->m_baseMatrix, this->m_pos);
-  // this->m_modelMatrix = glm::rotate();
-  this->animate();
+  this->move();
+
+  // this->m_modelMatrix = glm::rotate(this->m_modelMatrix, this->getTimeRatio()/this->m_, glm::vec3(1, 0, 0));
+  this->m_modelMatrix = glm::translate(this->m_modelMatrix, glm::vec3(1, 0, 0));
+  // this->animate();
   this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
 
   glUniformMatrix4fv(this->u_projMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getProjMatrix()));
