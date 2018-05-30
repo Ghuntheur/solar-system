@@ -20,5 +20,7 @@ void Planet::animate() {
 }
 
 void Planet::move() {
-  this->m_modelMatrix = glm::rotate(this->m_modelMatrix, this->getTimeRatio() * App::instance()->getTime(), glm::vec3(1, 0, 0));
+  float time = App::instance()->getTime() * this->getTimeRatio() / this->m_orbitalPeriod;
+  this->m_modelMatrix = glm::rotate(this->m_baseMatrix, time, glm::vec3(0, 1, 0));
+  this->m_modelMatrix = glm::translate(this->m_modelMatrix, this->m_pos);
 }

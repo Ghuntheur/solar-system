@@ -24,17 +24,15 @@ void Object::init() {
 void Object::render() {
 
   this->move();
+  this->animate();
 
-  // this->m_modelMatrix = glm::rotate(this->m_modelMatrix, this->getTimeRatio()/this->m_, glm::vec3(1, 0, 0));
-  this->m_modelMatrix = glm::translate(this->m_modelMatrix, glm::vec3(1, 0, 0));
-  // this->animate();
   this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
 
   glUniformMatrix4fv(this->u_projMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getProjMatrix()));
   glUniformMatrix4fv(this->u_viewMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getViewMatrix()));
   glUniformMatrix4fv(this->u_modelMatrix, 1, GL_FALSE, glm::value_ptr(this->m_modelMatrix));
   glUniformMatrix4fv(this->u_normalMatrix, 1, GL_FALSE, glm::value_ptr(this->m_normalMatrix));
-
+d
   this->m_sphere->binVAO();
   this->m_texture->bind();
   this->m_texture->locate(this->u_texture);

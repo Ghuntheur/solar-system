@@ -84,7 +84,6 @@ const unsigned int Scene::getCameraUID() {
 void Scene::reshape(const int width, int height, const GLfloat fov) {
   if (width != -1 && height != -1) this->m_aspectRatio = (GLfloat) width / height;
   this->m_projMatrix = glm::perspective(glm::radians(fov), this->m_aspectRatio, 0.1f, 100.f);
-  this->m_globalMatrix = glm::translate(glm::mat4(1.f), glm::vec3(0, 0, -5))*this->m_cameras[this->m_currentCamera]->getViewMatrix();
 }
 
 void Scene::initCameras() {
@@ -94,6 +93,10 @@ void Scene::initCameras() {
   this->m_cameras[TOP_VIEW]->setPosition(0, -40.f, 0);
   this->m_cameras[TOP_VIEW]->setFov(100.f);
   this->m_cameras[TOP_VIEW]->rotateUp(90.f);
+
+  this->m_cameras[PROFILE_VIEW]->setPosition(0, 0, -40.f);
+  this->m_cameras[PROFILE_VIEW]->setFov(100.f);
+  this->m_cameras[PROFILE_VIEW]->rotateUp(0.f);
 }
 
 void Scene::changeFov(Camera *cam, float value) {
