@@ -13,7 +13,7 @@ void PlayState::render() {
 }
 
 void PlayState::keyPressed(const uint32_t key, const bool active) {
-
+  this->m_scene->keyPressed(key, active);
 }
 
 void PlayState::mousePressed(const uint32_t type, const bool active) {

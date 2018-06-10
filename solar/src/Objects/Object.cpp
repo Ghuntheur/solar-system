@@ -21,6 +21,19 @@ void Object::init() {
   this->m_sphere->initBuffers();
 }
 
+void Object::draw() {
+  glUniformMatrix4fv(this->u_projMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getProjMatrix()));
+  glUniformMatrix4fv(this->u_viewMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getViewMatrix()));
+  glUniformMatrix4fv(this->u_modelMatrix, 1, GL_FALSE, glm::value_ptr(this->m_modelMatrix));
+  glUniformMatrix4fv(this->u_normalMatrix, 1, GL_FALSE, glm::value_ptr(this->m_normalMatrix));
+
+  this->m_sphere->binVAO();
+  this->m_texture->bind();
+  this->m_texture->locate(this->u_texture);
+  this->m_sphere->draw();
+  this->m_texture->unbind();
+}
+
 void Object::render() {
 
   this->move();
@@ -28,14 +41,5 @@ void Object::render() {
 
   this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
 
-  glUniformMatrix4fv(this->u_projMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getProjMatrix()));
-  glUniformMatrix4fv(this->u_viewMatrix, 1, GL_FALSE, glm::value_ptr(this->m_scene->getViewMatrix()));
-  glUniformMatrix4fv(this->u_modelMatrix, 1, GL_FALSE, glm::value_ptr(this->m_modelMatrix));
-  glUniformMatrix4fv(this->u_normalMatrix, 1, GL_FALSE, glm::value_ptr(this->m_normalMatrix));
-d
-  this->m_sphere->binVAO();
-  this->m_texture->bind();
-  this->m_texture->locate(this->u_texture);
-  this->m_sphere->draw();
-  this->m_texture->unbind();
+  this->draw();
 }

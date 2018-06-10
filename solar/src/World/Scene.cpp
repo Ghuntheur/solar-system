@@ -18,6 +18,7 @@ void Scene::loadPlanets() {
 
   std::string line;
   std::getline(file, line);
+  int i = 0;
   while (file.good()) {
     std::getline(file, line, ',');
     planetName = line;
@@ -49,24 +50,32 @@ void Scene::render() {
 void Scene::keyPressed(const uint32_t key, const bool active) {
   if (active) {
     if (key == SDLK_c) {
+      size_t i = static_cast<size_t>(this->m_currentCamera);
+      size_t n = this->m_cameras.size();
 
+      i++;
+      if (i >= n) i = 0;
+      if (i < 0) i = n-1;
+
+      this->m_currentCamera = static_cast<ViewType>(i);
+      this->reshape(-1, -1, this->m_cameras[this->m_currentCamera]->getFov());
     }
   }
 }
 
 void Scene::mouseMove(const glm::ivec2 &pos) {
-  if (this->m_currentCamera == TOP_VIEW) {
-    this->m_cameras[TOP_VIEW]->rotateLeft(pos.x * 0.5f);
+  if (this->m_currentCamera == PROFILE_VIEW) {
+    this->m_cameras[PROFILE_VIEW]->rotateLeft(pos.x * 0.5f);
   }
 }
 
 void Scene::mousePressed(const uint32_t type, const bool active) {
   if (type == SDL_BUTTON_WHEELDOWN) {
-    this->m_cameras[TOP_VIEW]->moveFront(-1.f);
+    this->m_cameras[this->m_currentCamera]->moveFront(1.f);
     this->changeFov(this->m_cameras[this->m_currentCamera], 1.f);
   }
   if (type == SDL_BUTTON_WHEELUP) {
-    this->m_cameras[TOP_VIEW]->moveFront(1.f);
+    this->m_cameras[this->m_currentCamera]->moveFront(-1.f);
     this->changeFov(this->m_cameras[this->m_currentCamera], -1.f);
   }
 }
@@ -90,12 +99,15 @@ void Scene::initCameras() {
   this->m_cameras[TOP_VIEW] = new TrackballCamera();
   this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
 
-  this->m_cameras[TOP_VIEW]->setPosition(0, -40.f, 0);
+  this->m_cameras[TOP_VIEW]->setPosition(0, 0, 0);
+  this->m_cameras[TOP_VIEW]->moveFront(5.f);
   this->m_cameras[TOP_VIEW]->setFov(100.f);
   this->m_cameras[TOP_VIEW]->rotateUp(90.f);
+  this->m_cameras[TOP_VIEW]->rotateLeft(0.f);
 
-  this->m_cameras[PROFILE_VIEW]->setPosition(0, 0, -40.f);
-  this->m_cameras[PROFILE_VIEW]->setFov(100.f);
+  this->m_cameras[PROFILE_VIEW]->setPosition(0, 0, 0);
+  this->m_cameras[PROFILE_VIEW]->moveFront(5.f);
+  this->m_cameras[PROFILE_VIEW]->setFov(80.f);
   this->m_cameras[PROFILE_VIEW]->rotateUp(0.f);
 }
 

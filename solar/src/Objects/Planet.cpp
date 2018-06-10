@@ -10,8 +10,8 @@ Planet::Planet(std::string name, float aphelion, float perihelion, int diameter,
 
   glimac::FilePath image  = this->m_name + ".jpg";
   this->m_texture = new Texture(App::s_appPath + "assets/textures/planets/" + image);
-  this->m_sphere = new Sphere((this->m_diameter/2) *distRatio, 32, 16);
-  this->m_pos = glm::vec3(this->m_aphelion / 100, 0, 0);
+  this->m_sphere = new Sphere((this->m_diameter/2) * distRatio, 32, 16);
+  this->m_pos = glm::vec3(this->m_aphelion / 120, 0, 0);
 }
 
 void Planet::animate() {
