@@ -10,6 +10,7 @@ protected:
 
   glm::vec3 m_position;
   float m_fov;
+  float m_fDistance = 5.f;
 
 public:
   void setPosition(float x, float y, float z);
@@ -24,6 +25,8 @@ public:
 
   inline const glm::vec3 getPosition() const { return this->m_position; }
   inline const float getFov() const { return this->m_fov; }
+  inline const float getDistance() const { return this->m_fDistance; }
+  inline void setDistance(const float distance) { this->m_fDistance = distance; }
   inline const unsigned int getUID() const { return Camera::UID; }
 
   bool operator ==(const Camera &camera) {

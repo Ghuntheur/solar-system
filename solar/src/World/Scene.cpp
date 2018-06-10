@@ -74,10 +74,11 @@ void Scene::mousePressed(const uint32_t type, const bool active) {
     this->m_cameras[this->m_currentCamera]->moveFront(1.f);
     this->changeFov(this->m_cameras[this->m_currentCamera], 1.f);
   }
-  if (type == SDL_BUTTON_WHEELUP) {
+  if (type == SDL_BUTTON_WHEELUP && this->m_cameras[this->m_currentCamera]->getDistance() > 2.f) {
     this->m_cameras[this->m_currentCamera]->moveFront(-1.f);
     this->changeFov(this->m_cameras[this->m_currentCamera], -1.f);
   }
+
 }
 
 const glm::mat4 Scene::getViewMatrix() {
@@ -100,13 +101,11 @@ void Scene::initCameras() {
   this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
 
   this->m_cameras[TOP_VIEW]->setPosition(0, 0, 0);
-  this->m_cameras[TOP_VIEW]->moveFront(5.f);
   this->m_cameras[TOP_VIEW]->setFov(100.f);
   this->m_cameras[TOP_VIEW]->rotateUp(90.f);
   this->m_cameras[TOP_VIEW]->rotateLeft(0.f);
 
   this->m_cameras[PROFILE_VIEW]->setPosition(0, 0, 0);
-  this->m_cameras[PROFILE_VIEW]->moveFront(5.f);
   this->m_cameras[PROFILE_VIEW]->setFov(80.f);
   this->m_cameras[PROFILE_VIEW]->rotateUp(0.f);
 }
