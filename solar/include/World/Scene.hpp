@@ -30,11 +30,15 @@ private:
 
   glm::mat4 m_projMatrix;
 
-  std::list<Object *> m_planets;
+  std::vector<Object *> m_planets;
+  std::vector<Object *> m_satellites;
+
+  float m_speed = 50;
 
 public:
   void init();
   void loadPlanets();
+  void loadSatellites(Object *object);
   void render();
   void keyPressed(uint32_t, bool);
   void mouseMove(const glm::ivec2 &);
@@ -46,7 +50,10 @@ public:
   inline const glm::mat4& getProjMatrix() const { return this->m_projMatrix; }
   inline const ViewType getViewType() const { return this->m_currentCamera; }
   inline const glm::vec3 getCameraPos() { return this->m_cameras[this->m_currentCamera]->getPosition(); }
-  inline const isReady() const { return this->m_ready; }
+  inline const bool isReady() const { return this->m_ready; }
+  inline const float getSpeed() const { return this->m_speed; }
+
+  inline const setSpeed(const float speed) { this->m_speed += speed; }
 
   ~Scene();
 
@@ -54,8 +61,8 @@ private:
   void reshape(int, int, GLfloat);
   void initCameras();
   void changeFov(Camera *, float);
-  template <class T> void addToList(std::list<T *> &list, T *object);
-  template <class T> void renderList(std::list<T *> &list);
-  template <class T> void deleteList(std::list<T *> &list);
+  template <class T> void addToList(std::vector<T *> &list, T *object);
+  template <class T> void renderList(std::vector<T *> &list);
+  template <class T> void deleteList(std::vector<T *> &list);
 };
 

@@ -4,8 +4,8 @@ void PlayState::init(StateController *controller) {
   State::init(controller);
 
   this->m_scene = new Scene;
-  this->m_scene->init();
   this->m_scene->loadPlanets();
+  this->m_scene->init();
 }
 
 void PlayState::render() {

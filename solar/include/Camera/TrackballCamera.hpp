@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glimac/glm.hpp>
+#include <Objects/Object.hpp>
 
 #include "Camera/Camera.hpp"
 

@@ -15,10 +15,10 @@ void Scene::loadPlanets() {
   std::string planetName;
   float aphelion, perihelion, orbitalPeriod, dayLength, inclination;
   int diameter;
+  bool hasSatellites;
 
   std::string line;
   std::getline(file, line);
-  int i = 0;
   while (file.good()) {
     std::getline(file, line, ',');
     planetName = line;
@@ -32,19 +32,55 @@ void Scene::loadPlanets() {
     orbitalPeriod = std::stof(line);
     std::getline(file, line, ',');
     dayLength = std::stof(line);
-    std::getline(file, line, '\n');
+    std::getline(file, line, ',');
     inclination = std::stof(line);
+    std::getline(file, line, '\n');
+    hasSatellites = line == "true";
 
     object = new Planet(planetName, aphelion, perihelion, diameter, orbitalPeriod,
-                        dayLength, inclination, &this->m_program);
-    addToList<Object>(this->m_planets, object);
+                        dayLength, inclination, hasSatellites, &this->m_program);
+    if (hasSatellites) this->loadSatellites(object);
+    this->addToList<Object>(this->m_planets, object);
   }
+
+  file.close();
+}
+
+void Scene::loadSatellites(Object *object) {
+  Planet *planet = dynamic_cast<Planet *>(object);
+
+  glimac::FilePath path = planet->getName() + ".csv";
+  std::ifstream file(App::s_appPath + "assets/satellites/" + path);
+  if (!file.is_open()) throw std::runtime_error(path + " file does not exsist");
+
+  Object *satellite;
+
+  std::string name;
+  int diameter;
+  float distance, inclination;
+
+  std::string line;
+  std::getline(file, line);
+  while (file.good()) {
+    std::getline(file, line, ',');
+    name = line;
+    std::getline(file, line, ',');
+    diameter = std::atoi(line.c_str());
+    std::getline(file, line, ',');
+    distance = std::stof(line);
+    std::getline(file, line, '\n');
+    inclination = std::stof(line);
+  }
+
+  satellite = new Satellite(name, diameter, distance, inclination, planet, &this->m_program);
+  this->addToList<Object>(this->m_satellites, satellite);
 
   file.close();
 }
 
 void Scene::render() {
   this->renderList(this->m_planets);
+  this->renderList(this->m_satellites);
 }
 
 void Scene::keyPressed(const uint32_t key, const bool active) {
@@ -59,6 +95,16 @@ void Scene::keyPressed(const uint32_t key, const bool active) {
 
       this->m_currentCamera = static_cast<ViewType>(i);
       this->reshape(-1, -1, this->m_cameras[this->m_currentCamera]->getFov());
+    }
+    
+    if (key == SDLK_s) {
+      this->setSpeed(200.f);
+    } 
+  }
+
+  if (!active) {
+    if (key == SDLK_s) {
+      this->setSpeed(-200.f);
     }
   }
 }
@@ -99,6 +145,7 @@ void Scene::reshape(const int width, int height, const GLfloat fov) {
 void Scene::initCameras() {
   this->m_cameras[TOP_VIEW] = new TrackballCamera();
   this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
+  // this->m_cameras[PLANET_VIEW] = new TrackballCamera();
 
   this->m_cameras[TOP_VIEW]->setPosition(0, 0, 0);
   this->m_cameras[TOP_VIEW]->setFov(100.f);
@@ -108,6 +155,12 @@ void Scene::initCameras() {
   this->m_cameras[PROFILE_VIEW]->setPosition(0, 0, 0);
   this->m_cameras[PROFILE_VIEW]->setFov(80.f);
   this->m_cameras[PROFILE_VIEW]->rotateUp(0.f);
+  
+ /* this->m_cameras[PLANET_VIEW]->setPosition(this->m_planets[4]->getPosition());
+  this->m_cameras[PLANET_VIEW]->setDistance(1.f);
+  this->m_cameras[PLANET_VIEW]->setFov(100.f);
+  this->m_cameras[PLANET_VIEW]->rotateUp(90.f);
+  this->m_cameras[PLANET_VIEW]->rotateLeft(0.f); */
 }
 
 void Scene::changeFov(Camera *cam, float value) {
@@ -120,19 +173,19 @@ void Scene::changeFov(Camera *cam, float value) {
   }
 }
 
-template <class T> void Scene::addToList(std::list<T *> &list, T *object) {
+template <class T> void Scene::addToList(std::vector<T *> &list, T *object) {
   object->init();
   object->attach(this);
   list.push_back(object);
 }
 
-template <class T> void Scene::renderList(std::list<T *> &list) {
+template <class T> void Scene::renderList(std::vector<T *> &list) {
   for (auto it = list.begin(); it != list.end(); ++it) {
     (*it)->render();
   }
 }
 
-template <class T> void Scene::deleteList(std::list<T *> &list) {
+template <class T> void Scene::deleteList(std::vector<T *> &list) {
   for (auto it = list.begin(); it != list.end(); ++it) {
     delete *it;
   }

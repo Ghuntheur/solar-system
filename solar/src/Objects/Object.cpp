@@ -33,13 +33,3 @@ void Object::draw() {
   this->m_sphere->draw();
   this->m_texture->unbind();
 }
-
-void Object::render() {
-
-  this->move();
-  this->animate();
-
-  this->m_normalMatrix = glm::transpose(glm::inverse(this->m_modelMatrix));
-
-  this->draw();
-}

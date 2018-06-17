@@ -8,6 +8,6 @@ void Camera::setPosition(float x, float y, float z) {
   this->m_position.z = z;
 }
 
-void Camera::setPosition(glm::vec3 &pos) {
+void Camera::setPosition(const glm::vec3 &pos) {
   this->m_position = pos;
 }

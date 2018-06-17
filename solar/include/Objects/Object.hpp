@@ -20,7 +20,6 @@ protected:
   Sphere *m_sphere;
 
   glm::vec3 m_pos;
-  float m_timeRatio = 100.f;
 
   // LOCATION MATRIX SHADERS
   GLint u_projMatrix;
@@ -39,15 +38,15 @@ public:
   Object() = default;
   Object(CustomProgram *);
 
-  void render();
   void draw();
-
   virtual void init();
+
   virtual void attach(Scene *);
+  virtual void render() = 0;
   virtual void animate() = 0;
   virtual void move() = 0;
 
-  inline const float getTimeRatio() const { return this->m_timeRatio; }
+  inline const glm::vec3 &getPosition() const { return this->m_pos; }
 
 };
 

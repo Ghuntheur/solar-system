@@ -14,7 +14,7 @@ protected:
 
 public:
   void setPosition(float x, float y, float z);
-  void setPosition(glm::vec3 &pos);
+  void setPosition(const glm::vec3 &pos);
 
   virtual glm::mat4 getViewMatrix() const = 0;
   virtual void moveFront(float delta) = 0;

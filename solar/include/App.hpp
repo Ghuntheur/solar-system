@@ -18,6 +18,7 @@ private:
 
   int m_width = 800;
   int m_height = 800;
+  float m_currentTime = 0;
   std::string m_title = "Solar System";
 
   bool m_running = false;

@@ -64,6 +64,10 @@ void App::run() {
 
         case SDL_KEYDOWN:
           this->m_stateController->keyPressed(e.key.keysym.sym, true);
+          if (e.key.keysym.sym == SDLK_ESCAPE) {
+            this->stop();
+            // TODO: stop static func
+          }
           break;
 
         case SDL_KEYUP:

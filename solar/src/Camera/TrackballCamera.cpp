@@ -28,7 +28,7 @@ void TrackballCamera::clampLeft(const float min, const float max) {
 
 glm::mat4 TrackballCamera::getViewMatrix() const {
   glm::mat4 mat = glm::mat4(1.0f);
-  mat = glm::translate(mat, glm::vec3(0, 0, -this->m_fDistance));
+  mat = glm::translate(mat, glm::vec3(0-this->m_position.x, 0-this->m_position.y, this->m_position.y-this->m_fDistance));
   mat = glm::rotate(mat, glm::radians(this->m_fAngleY),  glm::vec3(0, 1, 0));
   mat = glm::rotate(mat, glm::radians(this->m_fAngleX), glm::vec3(1, 0, 0));
   return mat;
