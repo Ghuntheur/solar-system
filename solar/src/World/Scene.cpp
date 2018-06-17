@@ -70,10 +70,10 @@ void Scene::loadSatellites(Object *object) {
     distance = std::stof(line);
     std::getline(file, line, '\n');
     inclination = std::stof(line);
-  }
 
-  satellite = new Satellite(name, diameter, distance, inclination, planet, &this->m_program);
-  this->addToList<Object>(this->m_satellites, satellite);
+    satellite = new Satellite(name, diameter, distance, inclination, planet, &this->m_program);
+    this->addToList<Object>(this->m_satellites, satellite);
+  }
 
   file.close();
 }

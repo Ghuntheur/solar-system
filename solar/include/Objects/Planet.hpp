@@ -25,6 +25,7 @@ public:
          CustomProgram *program);
 
   inline const std::string getName() const { return this->m_name; }
+  inline const float getOrbitalPeriod() const { return this->m_orbitalPeriod; }
 
   void render() override;
   void animate() override;

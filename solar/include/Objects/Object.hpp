@@ -47,7 +47,7 @@ public:
   virtual void move() = 0;
 
   inline const glm::vec3 &getPosition() const { return this->m_pos; }
-
+  inline const glm::mat4 &getModelMatrix() const { return this->m_modelMatrix; }
 };
 
 

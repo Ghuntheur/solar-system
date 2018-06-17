@@ -26,7 +26,7 @@ private:
   GLfloat m_aspectRatio;
   CustomProgram m_program;
   std::unordered_map<ViewType, Camera *> m_cameras;
-  ViewType m_currentCamera = PROFILE_VIEW;
+  ViewType m_currentCamera = TOP_VIEW;
 
   glm::mat4 m_projMatrix;
 
