@@ -1,0 +1,38 @@
+#pragma once
+
+#include <glimac/glm.hpp>
+
+class Camera {
+
+protected:
+  static unsigned int s_uid;
+  const unsigned int UID = s_uid++;
+
+  glm::vec3 m_position;
+  float m_fov;
+  float m_fDistance = 5.f;
+
+public:
+  void setPosition(float x, float y, float z);
+  void setPosition(const glm::vec3 &pos);
+
+  virtual glm::mat4 getViewMatrix() const = 0;
+  virtual void moveFront(float delta) = 0;
+  virtual void rotateUp(float degrees) = 0;
+  virtual void rotateLeft(float degrees) = 0;
+
+  inline void setFov(const float fov) { this->m_fov = fov; }
+
+  inline const glm::vec3 getPosition() const { return this->m_position; }
+  inline const float getFov() const { return this->m_fov; }
+  inline const float getDistance() const { return this->m_fDistance; }
+  inline void setDistance(const float distance) { this->m_fDistance = distance; }
+  inline const unsigned int getUID() const { return Camera::UID; }
+
+  bool operator ==(const Camera &camera) {
+    return camera.getUID() == Camera::UID;
+  }
+
+
+
+};
