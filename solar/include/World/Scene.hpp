@@ -34,6 +34,7 @@ private:
   std::vector<Object *> m_satellites;
 
   float m_speed = 50;
+  float m_positionSpeed = 50;
 
 public:
   void init();
@@ -52,8 +53,10 @@ public:
   inline const glm::vec3 getCameraPos() { return this->m_cameras[this->m_currentCamera]->getPosition(); }
   inline const bool isReady() const { return this->m_ready; }
   inline const float getSpeed() const { return this->m_speed; }
+  inline const float getPositionSpeed() const { return this->m_positionSpeed; }
 
   inline const setSpeed(const float speed) { this->m_speed += speed; }
+  inline const setPositionSpeed(const float speed) { this->m_positionSpeed = speed; }
 
   ~Scene();
 

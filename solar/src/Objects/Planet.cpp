@@ -30,7 +30,10 @@ void Planet::animate() {
 }
 
 void Planet::move() {
-  float time = App::instance()->getTime() * this->m_scene->getSpeed() / this->m_orbitalPeriod;
+  float time;
+  if (this->m_scene->getViewType() == PLANET_VIEW) {
+    time = App::instance()->getTime() * this->m_scene->getPositionSpeed()  / this->m_orbitalPeriod;
+  } else time = App::instance()->getTime() * this->m_scene->getSpeed()  / this->m_orbitalPeriod;
   this->m_modelMatrix = glm::rotate(this->m_baseMatrix, glm::radians(this->m_inclination), glm::vec3(0, 0, 1));
   this->m_modelMatrix = glm::rotate(this->m_modelMatrix, time, glm::vec3(0, 1, 0));
   this->m_modelMatrix = glm::translate(this->m_modelMatrix, this->m_pos);

@@ -94,16 +94,20 @@ void Scene::keyPressed(const uint32_t key, const bool active) {
       if (i < 0) i = n-1;
 
       this->m_currentCamera = static_cast<ViewType>(i);
+      if (this->m_currentCamera == PLANET_VIEW) {
+        this->setPositionSpeed(0);
+      } else { this->setPositionSpeed(50); }
+
       this->reshape(-1, -1, this->m_cameras[this->m_currentCamera]->getFov());
     }
     
-    if (key == SDLK_s) {
+    if (key == SDLK_s && this->m_currentCamera != PLANET_VIEW) {
       this->setSpeed(200.f);
     } 
   }
 
   if (!active) {
-    if (key == SDLK_s) {
+    if (key == SDLK_s && this->m_currentCamera != PLANET_VIEW) {
       this->setSpeed(-200.f);
     }
   }
@@ -145,7 +149,7 @@ void Scene::reshape(const int width, int height, const GLfloat fov) {
 void Scene::initCameras() {
   this->m_cameras[TOP_VIEW] = new TrackballCamera();
   this->m_cameras[PROFILE_VIEW] = new TrackballCamera();
-  // this->m_cameras[PLANET_VIEW] = new TrackballCamera();
+  this->m_cameras[PLANET_VIEW] = new TrackballCamera();
 
   this->m_cameras[TOP_VIEW]->setPosition(0, 0, 0);
   this->m_cameras[TOP_VIEW]->setFov(100.f);
@@ -156,11 +160,11 @@ void Scene::initCameras() {
   this->m_cameras[PROFILE_VIEW]->setFov(80.f);
   this->m_cameras[PROFILE_VIEW]->rotateUp(0.f);
   
- /* this->m_cameras[PLANET_VIEW]->setPosition(this->m_planets[4]->getPosition());
-  this->m_cameras[PLANET_VIEW]->setDistance(1.f);
-  this->m_cameras[PLANET_VIEW]->setFov(100.f);
+  this->m_cameras[PLANET_VIEW]->setPosition(this->m_planets[3]->getPosition());
+  this->m_cameras[PLANET_VIEW]->setDistance(0.5f);
+  this->m_cameras[PLANET_VIEW]->setFov(40.f);
   this->m_cameras[PLANET_VIEW]->rotateUp(90.f);
-  this->m_cameras[PLANET_VIEW]->rotateLeft(0.f); */
+  this->m_cameras[PLANET_VIEW]->rotateLeft(0.f);
 }
 
 void Scene::changeFov(Camera *cam, float value) {

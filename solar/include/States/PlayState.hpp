@@ -15,14 +15,11 @@ private:
 
 public:
   void init(StateController *);
-  void pause();
-  void resume();
   void stop();
   void render();
   void keyPressed(uint32_t key, bool active);
   void mousePressed(uint32_t type, bool active);
   void mouseMove(const glm::ivec2 &dir);
-  void loadMap();
   ~PlayState();
 
   inline const bool isPaused() const { return this->m_paused; }
